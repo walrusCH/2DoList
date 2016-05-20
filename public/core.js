@@ -1,13 +1,13 @@
 var ToDoList = angular.module('ToDoList',[]);
 
-function mainController($scope, $http) {
+ToDoList.controller('mainController',function($scope, $http){
 	$scope.formData = {};
 
 	$http.get('/todos')
-	.success(function(data) {
-		$scope.todos = data;
-		console.log(data);
-	})
+		.success(function(data) {
+			$scope.todos = data;
+			console.log(data);
+		})
 	.error(function(data) {
 		console.log('Error: ' + data);
 	});
@@ -15,8 +15,8 @@ function mainController($scope, $http) {
 	$scope.createTodo = function() {
 		$http.post('/todos', $scope.formData)
 		.success(function(data) {
-			$scope.formData = {};
-			$scope.formData = data;
+			$scope.todos.push(data);
+			$scope.formData='';
 			console.log(data);
 		})
 		.error(function(data) {
@@ -34,4 +34,9 @@ function mainController($scope, $http) {
 			console.log('Error: ' + data);
 		});
 	};
-}
+});
+
+
+
+
+
